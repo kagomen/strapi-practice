@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_text_contents",
+  "info": {
+    "displayName": "TextContent"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "body": {
+      "type": "richtext"
+    }
+  },
+  "config": {}
+}

@@ -1,5 +1,15 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface SharedImageBlock extends Struct.ComponentSchema {
+  collectionName: 'components_shared_image_blocks';
+  info: {
+    displayName: 'ImageBlock';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+  };
+}
+
 export interface SharedMedia extends Struct.ComponentSchema {
   collectionName: 'components_shared_media';
   info: {
@@ -62,14 +72,27 @@ export interface SharedSlider extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedTextContent extends Struct.ComponentSchema {
+  collectionName: 'components_shared_text_contents';
+  info: {
+    displayName: 'TextContent';
+  };
+  attributes: {
+    body: Schema.Attribute.RichText;
+    heading: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'shared.image-block': SharedImageBlock;
       'shared.media': SharedMedia;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;
       'shared.slider': SharedSlider;
+      'shared.text-content': SharedTextContent;
     }
   }
 }
