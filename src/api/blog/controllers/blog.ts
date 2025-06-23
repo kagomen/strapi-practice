@@ -11,33 +11,32 @@ import { factories } from "@strapi/strapi"
 export default factories.createCoreController(
   "api::blog.blog",
   ({ strapi }) => ({
-    // findOne()をオーバーライド
     async findOne(ctx) {
-      // 元のfindOne()を呼び出して基本的なデータを取得
-      const response = await super.findOne(ctx)
+      const { id: documentId } = ctx.params
+      const { query } = ctx
 
-      // レスポンスデータが存在する場合のみ、追加の処理を行う
-      if (response.data) {
-        const content = response.data.content || ""
-        const wordCount = content.length
-        response.data.wordCount = wordCount
-      }
+      const entity = await strapi
+        .service("api::blog.blog")
+        .findOneWithWordCount({
+          filters: { documentId },
+          ...query,
+        })
 
-      return response
+      return this.transformResponse(entity)
     },
 
-    // find()をオーバーライド
-    async find(ctx) {
-      const response = await super.find(ctx)
+    async findBySlug(ctx) {
+      const { slug } = ctx.params
+      const { query } = ctx
 
-      if (response.data && Array.isArray(response.data)) {
-        response.data.forEach((entry) => {
-          const content = entry.content || ""
-          entry.wordCount = content.length
+      const entity = await strapi
+        .service("api::blog.blog")
+        .findOneWithWordCount({
+          filters: { slug },
+          ...query,
         })
-      }
 
-      return response
+      return this.transformResponse(entity)
     },
   })
 )
