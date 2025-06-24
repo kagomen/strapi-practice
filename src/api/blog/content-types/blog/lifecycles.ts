@@ -11,14 +11,14 @@ const slugify = (str: string): string => {
 
 export default {
   // DBに新規データが追加される直前
-  beforeCreate: (event) => {
+  beforeCreate: (event: any) => {
     const { data } = event.params
     if (data.title) {
       data.slug = slugify(data.title)
     }
   },
   // DBの既存データが上書きされる直前
-  beforeUpdate: (event) => {
+  beforeUpdate: (event: any) => {
     const { data } = event.params
     if (data.title) {
       data.slug = slugify(data.title)
