@@ -1,5 +1,5 @@
 import { factories } from "@strapi/strapi"
-import { BlogWithWordCount } from "../services/blog"
+// import { BlogWithWordCount } from "../services/blog"
 
 /**
  * Strapiのコアコントローラーを生成し、カスタムメソッドで拡張するためのファクトリ関数
@@ -16,7 +16,7 @@ export default factories.createCoreController(
       const { id: documentId } = ctx.params
       const { query } = ctx
 
-      const entity: BlogWithWordCount | null = await strapi
+      const entity = await strapi
         .service("api::blog.blog")
         .findOneWithWordCount({
           filters: { documentId },
@@ -30,7 +30,7 @@ export default factories.createCoreController(
       const { slug } = ctx.params
       const { query } = ctx
 
-      const entity: BlogWithWordCount | null = await strapi
+      const entity = await strapi
         .service("api::blog.blog")
         .findOneWithWordCount({
           filters: { slug },
