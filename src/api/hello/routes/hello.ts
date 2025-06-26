@@ -5,7 +5,7 @@ export default {
       path: "/hello/protected",
       handler: "hello.protected",
       config: {
-        policies: ["global::isAuthenticated"],
+        policies: ["global::is-authenticated"],
         middlewares: [],
       },
     },
